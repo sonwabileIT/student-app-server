@@ -1,4 +1,7 @@
 import express from 'express';
+import 'dotenv/config';
+
+const PORT = process.env.PORT;
 
 const app = new express();
 
@@ -18,6 +21,6 @@ app.get('/api/students/:id', (req, res) => {
     res.send('student number: ' + req.params.id );
 })
 
-app.listen(4000, () => {
-    console.log('Server running at port: ' + 4000)
+app.listen(PORT, () => {
+    console.log('Server running at port: ' + PORT)
 });
