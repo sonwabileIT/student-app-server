@@ -30,6 +30,24 @@ app.post('/api/students', (req, res) => {
     res.status(201).send(student)
 })
 
+app.get('/api/users', (req, res) => {
+    res.send("Get all Users")
+})
+
+app.get('/api/users/:id', (req, res) => {
+    res.send("user: " + req.params.id)
+})
+
+app.post('/api/users', (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const type = req.body.type;
+
+    const user = {firstName, lastName, email, type}
+    res.status(201).send(user)
+})
+
 app.listen(PORT, () => {
     console.log('Server running at port: ' + PORT)
 });
