@@ -1,5 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
+import { getStudents, getStudentById, postStudent, deleteAllStudents, deleteStudentById} from './controllers/studentController.js';
+import { getUsers, getUserById, postUser, deleteAllUsers, deleteUserById } from './controllers/userController.js'
 
 const PORT = process.env.PORT;
 
@@ -8,45 +10,35 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send("Hello from get request")
-})
+} )
 
 app.get('/api/', (req, res) => {
     res.send("Hello from get api request");
-})
+} )
 
-app.get('/api/students/', (req, res) => {
-    res.send("Students list");
-})
+//students
 
-app.get('/api/students/:id', (req, res) => {
-    res.send('student number: ' + req.params.id );
-})
+app.get('/api/students/', getStudents )
 
-app.post('/api/students', (req, res) => {
-    const studentName = req.body.studentName;
-    const studentLastName = req.body.studentLastName;
-    const email = req.body.email;
-    const student = {studentName, studentLastName, email}
-    res.status(201).send(student)
-})
+app.get('/api/students/:id', getStudentById )
 
-app.get('/api/users', (req, res) => {
-    res.send("Get all Users")
-})
+app.post('/api/students', postStudent )
 
-app.get('/api/users/:id', (req, res) => {
-    res.send("user: " + req.params.id)
-})
+app.delete('/api/students', deleteAllStudents )
 
-app.post('/api/users', (req, res) => {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const type = req.body.type;
+app.delete('/api/students/:id', deleteStudentById )
 
-    const user = {firstName, lastName, email, type}
-    res.status(201).send(user)
-})
+//users
+
+app.get('/api/users', getUsers)
+
+app.get('/api/users/:id', getUserById)
+
+app.post('/api/users', postUser)
+
+app.delete('/api/users', deleteAllUsers)
+
+app.delete('/api/users/:id', deleteUserById )
 
 app.listen(PORT, () => {
     console.log('Server running at port: ' + PORT)
