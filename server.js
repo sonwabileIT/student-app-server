@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
-import { getStudents, getStudentById, postStudent} from './controllers/studentController.js'
+import { getStudents, getStudentById, postStudent} from './controllers/studentController.js';
+import { getUsers, getUserById, postUser } from './controllers/userController.js'
 
 const PORT = process.env.PORT;
 
@@ -21,23 +22,11 @@ app.get('/api/students/:id', getStudentById )
 
 app.post('/api/students', postStudent )
 
-app.get('/api/users', (req, res) => {
-    res.send("Get all Users")
-})
+app.get('/api/users', getUsers)
 
-app.get('/api/users/:id', (req, res) => {
-    res.send("user: " + req.params.id)
-})
+app.get('/api/users/:id', getUserById)
 
-app.post('/api/users', (req, res) => {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const type = req.body.type;
-
-    const user = {firstName, lastName, email, type}
-    res.status(201).send(user)
-})
+app.post('/api/users', postUser)
 
 app.listen(PORT, () => {
     console.log('Server running at port: ' + PORT)
