@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+import { getStudents, getStudentById, postStudent} from './controllers/studentController.js'
 
 const PORT = process.env.PORT;
 
@@ -8,27 +9,17 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send("Hello from get request")
-})
+} )
 
 app.get('/api/', (req, res) => {
     res.send("Hello from get api request");
-})
+} )
 
-app.get('/api/students/', (req, res) => {
-    res.send("Students list");
-})
+app.get('/api/students/', getStudents )
 
-app.get('/api/students/:id', (req, res) => {
-    res.send('student number: ' + req.params.id );
-})
+app.get('/api/students/:id', getStudentById )
 
-app.post('/api/students', (req, res) => {
-    const studentName = req.body.studentName;
-    const studentLastName = req.body.studentLastName;
-    const email = req.body.email;
-    const student = {studentName, studentLastName, email}
-    res.status(201).send(student)
-})
+app.post('/api/students', postStudent )
 
 app.get('/api/users', (req, res) => {
     res.send("Get all Users")
