@@ -1,6 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
-import { getStudents, getStudentById, postStudent, deleteAllStudents, deleteStudentById} from './controllers/studentController.js';
+import studentRoute from './routes/studentRoute.js'
 import { getUsers, getUserById, postUser, deleteAllUsers, deleteUserById } from './controllers/userController.js'
 
 const PORT = process.env.PORT;
@@ -18,15 +18,7 @@ app.get('/api/', (req, res) => {
 
 //students
 
-app.get('/api/students/', getStudents )
-
-app.get('/api/students/:id', getStudentById )
-
-app.post('/api/students', postStudent )
-
-app.delete('/api/students', deleteAllStudents )
-
-app.delete('/api/students/:id', deleteStudentById )
+app.use(studentRoute);
 
 //users
 
