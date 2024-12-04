@@ -1,7 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
-import { getStudents, getStudentById, postStudent, deleteAllStudents, deleteStudentById} from './controllers/studentController.js';
-import { getUsers, getUserById, postUser, deleteAllUsers, deleteUserById } from './controllers/userController.js'
+import studentRoute from './routes/studentRoute.js';
+import userRoute from './routes/userRoute.js';
 
 const PORT = process.env.PORT;
 
@@ -18,27 +18,11 @@ app.get('/api/', (req, res) => {
 
 //students
 
-app.get('/api/students/', getStudents )
-
-app.get('/api/students/:id', getStudentById )
-
-app.post('/api/students', postStudent )
-
-app.delete('/api/students', deleteAllStudents )
-
-app.delete('/api/students/:id', deleteStudentById )
+app.use(studentRoute);
 
 //users
 
-app.get('/api/users', getUsers)
-
-app.get('/api/users/:id', getUserById)
-
-app.post('/api/users', postUser)
-
-app.delete('/api/users', deleteAllUsers)
-
-app.delete('/api/users/:id', deleteUserById )
+app.use(userRoute);
 
 app.listen(PORT, () => {
     console.log('Server running at port: ' + PORT)
