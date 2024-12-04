@@ -17,3 +17,11 @@ export const postUser = (req, res) => {
     const user = {firstName, lastName, email, type}
     res.status(201).send(user)
 }
+
+export const deleteAllUsers = (req, res) => {
+    res.send("Resources deleted")
+}
+
+export const deleteUserById = (req, res) => {
+    res.send("Resource " + req.params.id + " has been deleted.")
+}

@@ -16,3 +16,11 @@ export const postStudent = (req, res) => {
     const student = {studentName, studentLastName, email}
     res.status(201).send(student)
 }
+
+export const deleteAllStudents = (req, res) => {
+    res.send("Resources deleted")
+}
+
+export const deleteStudentById = (req, res) => {
+    res.send("Resource " + req.params.id + " has been deleted.")
+}
