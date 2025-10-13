@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
+    "db": "json-server --watch mock_data/db.json",
     "start": "node --watch dist/server.js"
   },
   "keywords": [],
