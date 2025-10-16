@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, json } from 'express';
 import studentRoutes from './routes/studentRoute'
 
 const app = express();
+app.use(express.json())
 const POST = 8000;
 
 app.use(studentRoutes);
