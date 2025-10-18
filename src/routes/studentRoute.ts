@@ -8,6 +8,7 @@ const router = express.Router();
 
 
 //get all students
+//works
 router.get('/api/students/', async (req: Request, res: Response) => {
   try {
     const students = await fetch('http://localhost:3000/students');
@@ -24,6 +25,8 @@ router.get('/api/students/', async (req: Request, res: Response) => {
   }
 });
 
+//post a student
+//works
 router.post('/api/students/', (req: Request, res: Response) => {
   const id: string = req.body.id;
   const studentFirstName: string = req.body.studentFirstName;
@@ -63,11 +66,31 @@ router.post('/api/students/', (req: Request, res: Response) => {
 });
 
 //delete all students
-router.delete('api/students/', (req: Request, res: Response) => {
-  //delete all students
-})
+//not working
+//router.delete('/api/students', async (req: Request, res: Response) => {
+//delete all students
+//  try {
+//    const deleteStudents = await fetch('http://localhost:3000/students', {
+//      method: 'DELETE'
+//    });
+//    const response = await deleteStudents.json();
+//    console.log(response);
+//    if (response.ok) {
+//      res.end();
+//    }
+//    res.end();
+//if (response.status === 404) {
+//console.log("No content found.");
+//res.end();
+//}
+//  }
+//  catch (error) {
+//    console.log('Error message: ' + error);
+//  }
+//})
 
 //get a student
+//works
 router.get(`/api/students/:id`, async (req: Request, res: Response) => {
   const studentId = req.params.id;
   if (studentId !== null) {
@@ -87,8 +110,22 @@ router.get(`/api/students/:id`, async (req: Request, res: Response) => {
 })
 
 //delete a student
+//works
 router.delete(`/api/students/:id`, (req: Request, res: Response) => {
-  const studentToDelete = req.params.id;
+  const studentId = req.params.id;
+  console.log(studentId);
+
+  try {
+    const deleteStudent = fetch('http://localhost:3000/students/' + studentId, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    res.status(204).end();
+  } catch (error) {
+    console.log('Error message: ' + error);
+  }
   //delete all students
 })
 
