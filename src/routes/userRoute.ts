@@ -62,10 +62,34 @@ router.get('/api/users/:id', async (req: Request, res: Response) => {
 });
 
 
-router.put('/api/users/:id', (req: Request, res: Response) => {
+router.patch('/api/users/:id', async (req: Request, res: Response) => {
+  const getUserId = req.params.id;
+  const patchUser = req.body;
+  try {
+    const updateUser = await fetch('http://localhost:3000/users/' + getUserId, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "firstName": patchUser.firstName,
+        "lastName": patchUser.lastName,
+        "email": patchUser.email,
+        "role": patchUser.role
+      })
+    });
+    const response = await updateUser.json();
+    res.status(200).end();
+    console.log(updateUser);
 
+  }
+  catch (error) {
+    console.log("Error message: " + error)
+  }
 });
 
+//Delete User
+//works
 router.delete('/api/users/:id', (req: Request, res: Response) => {
   const getUserId = req.params.id;
   try {
