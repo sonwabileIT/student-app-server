@@ -32,7 +32,6 @@ router.post('/api/students/', (req: Request, res: Response) => {
   const studentFirstName: string = req.body.studentFirstName;
   const studentLastName: string = req.body.studentLastName;
   const studentEmail: string = req.body.studentEmail;
-  //console.log("Saved in req body: " + studentFirstName, studentLastName, studentEmail);
 
 
   const newStudent = {
@@ -41,8 +40,6 @@ router.post('/api/students/', (req: Request, res: Response) => {
     studentLastName: studentLastName,
     studentEmail: studentEmail
   }
-  //console.log(JSON.stringify(newStudent));
-  //res.send(JSON.stringify(newStudent));
 
   try {
 
@@ -126,12 +123,34 @@ router.delete(`/api/students/:id`, (req: Request, res: Response) => {
   } catch (error) {
     console.log('Error message: ' + error);
   }
-  //delete all students
 })
 
 //update a student
-router.patch(`/api/students/:id`, (req: Request, res: Response) => {
+//works
+router.patch(`/api/students/:id`, async (req: Request, res: Response) => {
+  const getStudentId = req.params.id;
+  const patchStudent = req.body;
 
+  try {
+    const data = await fetch('http://localhost:3000/students/' + getStudentId, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "studentFirstName": patchStudent.studentFirstName,
+        "studentLastName": patchStudent.studentLastName,
+        "studentEmail": patchStudent.studentEmail
+      })
+    });
+    const response = await data.json();
+    console.log(response);
+    res.status(201).end();
+
+  }
+  catch (error) {
+    console.log("Error message: " + error);
+  }
 })
 
 export default router;
