@@ -18,8 +18,29 @@ router.get('/api/users', async (req: Request, res: Response) => {
 
 });
 
-
+//Add new user
+//works
 router.post('/api/users', (req: Request, res: Response) => {
+  const newUser = req.body;
+  try {
+    const addUser = fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id": newUser.id,
+        "firstName": newUser.firstName,
+        "lastName": newUser.lastName,
+        "email": newUser.email,
+        "role": newUser.role
+      })
+    })
+    res.status(201).end();
+  }
+  catch (error) {
+    console.log('Error message: ' + error);
+  }
 
 });
 
