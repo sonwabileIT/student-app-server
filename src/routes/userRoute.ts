@@ -67,6 +67,21 @@ router.put('/api/users/:id', (req: Request, res: Response) => {
 });
 
 router.delete('/api/users/:id', (req: Request, res: Response) => {
+  const getUserId = req.params.id;
+  try {
+    const deleteUser = fetch('http://localhost:3000/users/' + getUserId, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    res.status(204).end();
+
+  }
+  catch (error) {
+    console.log('Error message: ' + error)
+    res.end()
+  }
 
 });
 
