@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
+import { getAllUsersService, postUserService, getUserByIdService, updateUserByIdService, deleteUserByIdService } from '../services/userService';
 
 export const getAllUsersController = async (req: Request, res: Response) => {
+  /*
   try {
     const data = await fetch('http://localhost:3000/users');
     const response = await data.json();
@@ -10,11 +12,18 @@ export const getAllUsersController = async (req: Request, res: Response) => {
   catch (error) {
     console.log('Error Message: ' + error);
   }
-
+*/
+  const users = await getAllUsersService();
+  console.log("From Controller: ", users);
+  res.send(users);
 };
 
+//works
 export const postUserController = (req: Request, res: Response) => {
   const newUser = req.body;
+  const userService = postUserService(newUser);
+  res.status(201).end();
+  /*
   try {
     const addUser = fetch('http://localhost:3000/users', {
       method: 'POST',
@@ -34,11 +43,14 @@ export const postUserController = (req: Request, res: Response) => {
   catch (error) {
     console.log('Error message: ' + error);
   }
-
+*/
 };
 
 export const getUserByIdController = async (req: Request, res: Response) => {
   const getUserId = req.params.id;
+  const user = await getUserByIdService(getUserId);
+  res.send(user).end();
+  /*
   try {
     const getUser = await fetch('http://localhost:3000/users/' + getUserId);
     const response = await getUser.json();
@@ -48,12 +60,16 @@ export const getUserByIdController = async (req: Request, res: Response) => {
   catch (error) {
     console.log('Error message: ' + error);
   }
-
+*/
 };
 
 export const updateUserByIdController = async (req: Request, res: Response) => {
   const getUserId = req.params.id;
   const patchUser = req.body;
+  const userService = await updateUserByIdService(getUserId, patchUser);
+  console.log("From Controller: ", userService)
+  res.send(userService).end();
+  /*
   try {
     const updateUser = await fetch('http://localhost:3000/users/' + getUserId, {
       method: 'PATCH',
@@ -75,12 +91,15 @@ export const updateUserByIdController = async (req: Request, res: Response) => {
   catch (error) {
     console.log("Error message: " + error)
   }
-
+*/
 };
 
+//works
 export const deleteUserByIdController = (req: Request, res: Response) => {
   const getUserId = req.params.id;
-  try {
+  const deleteUser = deleteUserByIdService(getUserId);
+  res.status(204).end();
+  /*try {
     const deleteUser = fetch('http://localhost:3000/users/' + getUserId, {
       method: 'DELETE',
       headers: {
@@ -94,5 +113,5 @@ export const deleteUserByIdController = (req: Request, res: Response) => {
     console.log('Error message: ' + error)
     res.end()
   }
-
+*/
 };
