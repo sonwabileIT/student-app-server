@@ -1,4 +1,5 @@
-
+import User from '../models/userModel';
+/*
 type User = {
   "id": string,
   "firstName": string,
@@ -6,6 +7,7 @@ type User = {
   "email": string,
   "role": string
 }
+*/
 
 //works
 export async function getAllUsersService() {
