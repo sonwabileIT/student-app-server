@@ -1,11 +1,4 @@
-
-type User = {
-  "id": string,
-  "firstName": string,
-  "lastName": string,
-  "email": string,
-  "role": string
-}
+import User from '../models/userModel';
 
 //works
 export async function getAllUsersService() {

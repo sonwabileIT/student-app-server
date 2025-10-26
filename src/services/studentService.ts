@@ -1,10 +1,4 @@
-
-type Student = {
-  id: string,
-  studentFirstName: string,
-  studentLastName: string,
-  studentEmail: string
-}
+import Student from '../models/studentModel';
 
 //works
 export async function getAllStudents() {
