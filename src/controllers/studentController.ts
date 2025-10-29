@@ -15,12 +15,14 @@ export const postNewStudentController = (req: Request, res: Response) => {
   const studentFirstName: string = req.body.studentFirstName;
   const studentLastName: string = req.body.studentLastName;
   const studentEmail: string = req.body.studentEmail;
+  const password: string = req.body.password;
 
   const student = {
     id: id,
     studentFirstName: studentFirstName,
     studentLastName: studentLastName,
-    studentEmail: studentEmail
+    studentEmail: studentEmail,
+    password: password
   }
 
   const newStudent = postNewStudent(student);
