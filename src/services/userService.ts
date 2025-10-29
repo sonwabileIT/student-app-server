@@ -1,4 +1,7 @@
 import User from '../models/userModel';
+import bcrypt from 'bcrypt';
+
+//const bcrypt = bcrypt();
 
 //works
 export async function getAllUsersService() {
@@ -17,9 +20,11 @@ export async function getAllUsersService() {
 }
 
 //works
-export function postUserService(user: User) {
+export async function postUserService(user: User) {
   try {
-    const addUser = fetch('http://localhost:3000/users', {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    const addUser = await fetch('http://localhost:3000/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,7 +34,7 @@ export function postUserService(user: User) {
         "firstName": user.firstName,
         "lastName": user.lastName,
         "email": user.email,
-        "password": user.password,
+        "password": hashedPassword,
         "role": user.role
       })
     })

@@ -1,4 +1,5 @@
 import Student from '../models/studentModel';
+import bcrypt from 'bcrypt';
 
 //works
 export async function getAllStudents() {
@@ -19,10 +20,12 @@ export async function getAllStudents() {
 };
 
 //works
-export function postNewStudent(student: Student) {
+export async function postNewStudent(student: Student) {
   try {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(student.password, salt);
 
-    const postStudent = fetch('http://localhost:3000/students', {
+    const postStudent = await fetch('http://localhost:3000/students', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +34,7 @@ export function postNewStudent(student: Student) {
         "id": student.id,
         "studentFirstName": student.studentFirstName,
         "studentLastName": student.studentLastName,
-        "studentEmail": student.studentEmail,
+        "studentEmail": hashedPassword,
         "password": student.password
       }),
     });
