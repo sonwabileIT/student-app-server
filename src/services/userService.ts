@@ -29,6 +29,7 @@ export function postUserService(user: User) {
         "firstName": user.firstName,
         "lastName": user.lastName,
         "email": user.email,
+        "password": user.password,
         "role": user.role
       })
     })
@@ -67,6 +68,7 @@ export async function updateUserByIdService(id: string, user: User) {
         "firstName": user.firstName,
         "lastName": user.lastName,
         "email": user.email,
+        "password": user.password,
         "role": user.role
       })
     });

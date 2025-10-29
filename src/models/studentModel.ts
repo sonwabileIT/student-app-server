@@ -3,5 +3,6 @@ export default interface Student {
   studentFirstName: string;
   studentLastName: string;
   studentEmail: string;
+  password: string;
 
 };

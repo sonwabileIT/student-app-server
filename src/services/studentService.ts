@@ -31,7 +31,8 @@ export function postNewStudent(student: Student) {
         "id": student.id,
         "studentFirstName": student.studentFirstName,
         "studentLastName": student.studentLastName,
-        "studentEmail": student.studentEmail
+        "studentEmail": student.studentEmail,
+        "password": student.password
       }),
     });
     //res.status(201).end();
@@ -72,7 +73,8 @@ export async function updateStudentById(id: string, student: Student) {
       body: JSON.stringify({
         "studentFirstName": student.studentFirstName,
         "studentLastName": student.studentLastName,
-        "studentEmail": student.studentEmail
+        "studentEmail": student.studentEmail,
+        "password": student.password
       })
     });
     const response = await data.json();
