@@ -34,8 +34,8 @@ export async function postNewStudent(student: Student) {
         "id": student.id,
         "studentFirstName": student.studentFirstName,
         "studentLastName": student.studentLastName,
-        "studentEmail": hashedPassword,
-        "password": student.password
+        "studentEmail": student.studentEmail,
+        "password": hashedPassword
       }),
     });
     //res.status(201).end();
