@@ -41,7 +41,7 @@ export async function postNewStudent(student: Student) {
     //res.status(201).end();
   }
   catch (error) {
-    console.log("Error message: " + error);
+    console.log("Error message from Service: " + error);
   }
 
 }

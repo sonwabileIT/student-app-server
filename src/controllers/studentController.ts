@@ -11,7 +11,9 @@ export const getAllStudentsController = async (req: Request, res: Response) => {
 
 //works
 export const postNewStudentController = (req: Request, res: Response) => {
+  console.log("Post StudentController Start \n");
   const id: string = req.body.id;
+  console.log("From Controller: ", id);
   const studentFirstName: string = req.body.studentFirstName;
   const studentLastName: string = req.body.studentLastName;
   const studentEmail: string = req.body.studentEmail;
