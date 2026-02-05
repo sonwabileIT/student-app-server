@@ -12,7 +12,6 @@ router.get('/api/users', getAllUsersController);
 //works
 router.post('/api/users', postUserController);
 
-
 //Get single user
 //works
 router.get('/api/users/:id', getUserByIdController);
