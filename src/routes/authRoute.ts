@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import { postUserController } from '../controllers/userController';
 import { postNewStudentController } from '../controllers/studentController';
 import { postNewStudent } from '../services/studentService';
+import Student from '../models/studentModel';
 
 const app = express();
 app.use(express.json());
@@ -60,8 +61,40 @@ router.post('/api/auth/users/login', async (req: Request, res: Response) => {
 });
 
 router.post('/api/auth/students/login', async (req: Request, res: Response) => {
+
+  //type partialStudent = Omit<Student, "id" | "studentFirstName" | "studentLastName">
   try {
-    res.send("This is from students login page");
+    //get data from body
+    const studentEmail = await req.body.studentEmail;
+    const password = await req.body.password;
+    //create object
+    const student: Partial<Student> = {
+      studentEmail: studentEmail,
+      password: password
+    }
+    //fetch result from database
+    const findStudent = await fetch('http://localhost:3000/students?studentEmail=' + student.studentEmail + '&password=' + student.password);
+
+    const result = await findStudent.json();
+
+    if (!result) {
+      return res.send("Not found.");
+    }
+    //console.log(JSON.stringify(result));
+    //return res.status(200).send(result);
+    //generate session for the user found
+    //
+    req.session.studentID = result.id;
+    req.session.studentFirstName = result.studentFirstName;
+
+    console.log("Session: ", req.session);
+    console.log("SessionID: " + req.sessionID);
+
+    return res.send("Login success");
+
+
+
+
   }
   catch (error) {
     console.error("Error message from student login: ", error);
